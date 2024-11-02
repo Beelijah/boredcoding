@@ -6,10 +6,11 @@ title BCG
 set checkforskull=N
 set runBatch=%cd%\
 rem dont forget to update these!
-set ver=ALPHA_1.5.6
-set buildver=23
+set ver=ALPHA_1.5.7
+set buildver=25
 set isSnap=N
 rem okay, you dont have to update these.
+set /A colorannoy=0
 set startfromone=N
 set guessnumberfrom=guessbackfailed
 set isDev=N
@@ -18,6 +19,10 @@ set update=N
 if "%runBatch%" EQU "*\\" set runBatch=%cd%
 set alrcheck=N
 if not exist "C:\Users\%username%\ThatTemp\BCG\" goto :firsttime
+cd "C:\Users\%username%\ThatTemp\BCG\"
+set /P colorchoice=<colorchoice.dat
+color %colorchoice%
+if exist "C:\Users\%username%\ThatTemp\BCG\colorannoymiddle.dat" goto :colorannoyleft
 if "%isSnap%" EQU "Y" if not exist "C:\Users\%username%\ThatTemp\BCG\snaptest.dat" goto :snapwarn
 goto :start
 
@@ -543,6 +548,7 @@ echo x=msgbox("what." ,64, "windows")>levelsevenverysurprised.vbs
 echo x=msgbox("what is it?" ,32, "windows")>levelsevenwhatisit.vbs
 echo %buildver% >ver.dat
 echo you are alpha > alpha.aim
+if not exist "C:\Users\%username%\ThatTemp\BCG\colorchoice.dat" echo 0F > colorchoice.dat
 if /I "%update%" EQU "Y" goto :updatefinish
 cls
 echo Hacking the mainframe        : LOADING
@@ -588,6 +594,9 @@ pause > nul
 color 0F
 goto :start
 
+:ressetdata
+goto :resetdata
+
 :resetdata
 cd "C:\Users\%username%\ThatTemp\BCG\saveone\"
 if exist "C:\Users\%username%\ThatTemp\BCG\saveone\save.dat" set /P levelsaveone=<save.dat
@@ -616,7 +625,7 @@ if "%option%" EQU "2" set deletefile=2& goto :resetfile
 if "%option%" EQU "3" set deletefile=3& goto :resetfile
 
 if /I "%option%" EQU "F" goto :fullreset
-if /I "%option%" EQU "E" goto :start
+if /I "%option%" EQU "E" goto :options
 cls
 echo that's not an option...
 echo ----------------------------
@@ -697,6 +706,7 @@ timeout 1 /NOBREAK > nul
 goto :update
 
 rem START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START START 
+rem this is a placeholder wow
 :start
 cd "C:\Users\%username%\ThatTemp\BCG\"
 if not exist "C:\Users\%username%\ThatTemp\BCG\ver.dat" goto :verdatmissing
@@ -725,13 +735,13 @@ if "%isDev%" EQU "Y" echo Reload
 if exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" if exist "C:\Users\%username%\ThatTemp\BCG\atminigames.dat" echo Minigames
 if exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" if not exist "C:\Users\%username%\ThatTemp\BCG\atminigames.dat" echo Minigames (NEW)
 if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" echo Minigames (LOCKED)
-echo Delete Save
+echo Options
 echo Exit
 echo ---------------------------------------------
 echo Type the first letter of an option to use it!
 set /P option=
 if /I "%option%" EQU "S" goto :gamesaves
-if /I "%option%" EQU "D" goto :resetdata
+if /I "%option%" EQU "O" goto :options
 if /I "%option%" EQU "A" goto :achievements
 if /I "%option%" EQU "E" exit
 if /I "%option%" EQU "L" goto :DEBUGask
@@ -743,6 +753,212 @@ echo that's not an option.
 echo press a key to go back
 pause > nul
 goto :start
+
+rem thought of this the day after halloween.
+:options
+cls
+echo BCG %ver% - Options
+if exist "C:\Users\%username%\ThatTemp\BCG\olddebug.dat" echo USED TO BE A DEBUG USER
+if "%isDev%" EQU "Y" echo DEBUG ENABLED
+if "%isSnap%" EQU "Y" echo Pre-Release build!
+echo Type "E" to go back...
+echo ---------------------------------------------
+echo Reset Data
+echo Change Color
+echo ---------------------------------------------
+echo Type the first letter of an option to use it!
+set /P option=
+if /I "%option%" EQU "C" goto :changecolor
+if /I "%option%" EQU "R" goto :resetdata
+if /I "%option%" EQU "E" goto :start
+cls
+echo that's not an option.
+echo ---------------------------
+echo press any key to go back...
+pause > nul
+goto :start
+
+:colorannoyleft
+echo nope.
+timeout 2 /NOBREAK > nul
+goto :colorannoy
+
+:colorannoy
+cd "C:\Users\%username%\ThatTemp\BCG\"
+echo no > colorannoymiddle.dat
+echo haha > annoy.aim
+cls
+echo That was the final time.
+timeout 2 /NOBREAK > nul
+echo There's no more turning back...
+timeout 2 /NOBREAK > nul
+cd "C:\Users\%username%\ThatTemp\BCG\"
+del colorannoymiddle.dat
+echo no > colorannoydeleted.dat
+cls
+echo Deleting All Saves...
+timeout 3 /NOBREAK > nul
+cls
+echo Deleted...
+echo -------------------------
+echo Press any key to close...
+pause > nul
+exit
+
+:changecolor
+cls
+echo Type "E" to go back...
+echo Choose a text color:
+echo ----------------------------------------
+echo 1 - White
+echo 2 - Light Green
+echo 3 - Dark Green
+echo 4 - Light Blue
+echo 5 - Dark Blue
+echo 6 - Black
+echo ----------------------------------------
+echo Type the number of a color to choose it!
+set /P coloroption=
+if /I "%coloroption%" EQU "1" set coloroption=1& goto :changecolorback
+if /I "%coloroption%" EQU "2" set coloroption=2& goto :changecolorback
+if /I "%coloroption%" EQU "3" set coloroption=3& goto :changecolorback
+if /I "%coloroption%" EQU "4" set coloroption=4& goto :changecolorback
+if /I "%coloroption%" EQU "5" set coloroption=5& goto :changecolorback
+if /I "%coloroption%" EQU "6" set coloroption=6& goto :changecolorback
+rem .
+if /I "%coloroption%" EQU "E" goto :options
+if "%colorannoy%" EQU "7" set /A colorannoy=0
+set /A colorannoy=%colorannoy%+1
+cls
+rem AKLFJSDLKFJSDLKFJSLK" echo this is the longest it can be.
+if "%colorannoy%" EQU "1" echo not a color.
+if "%colorannoy%" EQU "2" echo i said that's not a color.
+if "%colorannoy%" EQU "3" echo what did i just say?!
+if "%colorannoy%" EQU "4" echo you better not do it again.
+if "%colorannoy%" EQU "5" echo this is the last warning!
+if "%colorannoy%" EQU "6" echo you're going to regret this...
+if "%colorannoy%" EQU "7" goto :colorannoy
+echo ------------------------------
+echo press any key to go back...
+pause > nul
+goto :changecolor
+
+:changecolorback
+cls
+echo Type "E" to go back...
+echo Choose a background color:
+echo ----------------------------------------
+if "%coloroption%" EQU "1" echo 1 - White (Already Chosen)
+if not "%coloroption%" EQU "1" echo 1 - White
+
+if "%coloroption%" EQU "2" echo 2 - Light Green (Already Chosen)
+if not "%coloroption%" EQU "2" echo 2 - Light Green
+
+if "%coloroption%" EQU "3" echo 3 - Dark Green (Already Chosen)
+if not "%coloroption%" EQU "3" echo 3 - Dark Green
+
+if "%coloroption%" EQU "4" echo 4 - Light Blue (Already Chosen)
+if not "%coloroption%" EQU "4" echo 4 - Light Blue
+
+if "%coloroption%" EQU "5" echo 5 - Dark Blue (Already Chosen)
+if not "%coloroption%" EQU "5" echo 5 - Dark Blue
+
+if "%coloroption%" EQU "6" echo 6 - Black (Already Chosen)
+if not "%coloroption%" EQU "6" echo 6 - Black
+
+echo ----------------------------------------
+echo Type the number of a color to choose it!
+set /P coloroptionback=
+if /I "%coloroptionback%" EQU "1" set coloroptionback=1& goto :changecolorcheck
+if /I "%coloroptionback%" EQU "2" set coloroptionback=2& goto :changecolorcheck
+if /I "%coloroptionback%" EQU "3" set coloroptionback=3& goto :changecolorcheck
+if /I "%coloroptionback%" EQU "4" set coloroptionback=4& goto :changecolorcheck
+if /I "%coloroptionback%" EQU "5" set coloroptionback=5& goto :changecolorcheck
+if /I "%coloroptionback%" EQU "6" set coloroptionback=6& goto :changecolorcheck
+rem .
+if /I "%coloroption%" EQU "E" goto :options
+cls
+echo that's not a color...
+echo ------------------------------
+echo press any key to go back...
+pause > nul
+goto :changecolor
+
+:changecolorsame
+cls
+echo Woah, those two are the same colors!
+echo You'll need to go back and choose different ones.
+echo -------------------------------------------------
+echo Press any key to go back...
+pause > nul
+goto :changecolor
+
+:changecolorcheck
+if "%coloroption%" EQU "%coloroptionback%" goto :changecolorsame
+goto :changecolorset
+
+:changecolorset
+rem 1 - White
+rem 2 - Light Green
+rem 3 - Dark Green
+rem 4 - Light Blue
+rem 5 - Dark Blue
+cd "C:\Users\%username%\ThatTemp\BCG\"
+if "%coloroption%" EQU "1" set encodedcolor=F
+if "%coloroption%" EQU "2" set encodedcolor=A
+if "%coloroption%" EQU "3" set encodedcolor=2
+if "%coloroption%" EQU "4" set encodedcolor=B
+if "%coloroption%" EQU "5" set encodedcolor=1
+if "%coloroption%" EQU "6" set encodedcolor=0
+rem .
+if "%coloroptionback%" EQU "1" set encodedcolorback=F
+if "%coloroptionback%" EQU "2" set encodedcolorback=A
+if "%coloroptionback%" EQU "3" set encodedcolorback=2
+if "%coloroptionback%" EQU "4" set encodedcolorback=B
+if "%coloroptionback%" EQU "5" set encodedcolorback=1
+if "%coloroptionback%" EQU "6" set encodedcolorback=0
+rem .
+goto :changecolorconfirm
+
+rem colorchoice
+
+:changecolordecline
+color %colorchoice%
+cls
+echo Changes Reverted.
+echo ---------------------------
+echo Press any key to go back...
+pause > nul
+goto :options
+
+:changecolorconfirmset
+cd "C:\Users\%username%\ThatTemp\BCG\"
+echo %encodedcolorback%%encodedcolor% > colorchoice.dat
+cls
+echo Color saved.
+echo --------------------------
+echo Press any key to finish...
+pause > nul
+goto :options
+
+:changecolorconfirm
+color %encodedcolorback%%encodedcolor%
+cls
+echo Is this color okay?
+echo Yes              No
+echo -------------------
+echo Choose an option.
+set /P colorconfirm=
+if /I "%colorconfirm%" EQU "Y" goto :changecolorconfirmset
+if /I "%colorconfirm%" EQU "Yes" goto :changecolorconfirmset
+if /I "%colorconfirm%" EQU "No" goto :changecolordecline
+if /I "%colorconfirm%" EQU "N" goto :changecolordecline
+cls
+echo Not an answer...
+echo ---------------------------
+echo Press any key to go back...
+pause > nul
+goto :changecolorconfirm
 
 :minigameslocked
 cls
@@ -980,7 +1196,7 @@ del answerone.dat
 del answertwo.dat
 del answerthree.dat
 @echo off
-color 0F
+color %colorchoice%
 cls
 echo Save Converted...
 echo ---------------------------------------
@@ -995,7 +1211,6 @@ echo -------------------------------
 echo Press any key to exit...
 pause > nul
 exit
-
 
 :gamesaves
 if exist "C:\Users\%username%\ThatTemp\BCG\save.dat" goto :saveconvert
@@ -1025,6 +1240,12 @@ if exist "C:\Users\%username%\ThatTemp\BCG\savethree\friendlysave.dat" set /P le
 if not exist "C:\Users\%username%\ThatTemp\BCG\savethree\friendlysave.dat" set levelsavethree=??? (%levelsavethreeog%)
 if not exist "C:\Users\%username%\ThatTemp\BCG\savethree\save.dat" set levelsavethree=NEW GAME
 
+cd "C:\Users\%username%\ThatTemp\BCG\"
+if exist "C:\Users\%username%\ThatTemp\BCG\colorannoydeleted.dat" set colorannoydeleted=Y
+if "%colorannoydeleted%" EQU "Y" set levelsaveone=NEW GAME (REVENGE)
+if "%colorannoydeleted%" EQU "Y" set levelsavetwo=NEW GAME (REVENGE)
+if "%colorannoydeleted%" EQU "Y" set levelsavethree=NEW GAME (REVENGE)
+if exist "C:\Users\%username%\ThatTemp\BCG\colorannoydeleted.dat" del colorannoydeleted.dat
 cls
 echo BCG %ver%
 if "%isDev%" EQU "Y" echo DEBUG BUILD
@@ -1067,8 +1288,8 @@ if exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Unlocked: Mathematicia
 if not exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Locked: Mathematician          - Get every question right during the math quiz!
 if exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Unlocked: Another Feeling      - Find the secret code for the feelings question.
 if not exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Locked: Another Feeling        - Find the secret code for the feelings question.
-if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Yes or Annoyance     - Annoy boredcoding.bat during level six.
-if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Yes or Annoyance       - Annoy boredcoding.bat during level six.
+if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Not A Color!!!       - Annoy BCG while picking a color.
+if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Not A Color!!!         - Annoy BCG while picking a color.
 echo ---------------------------------------------------------------------------------------
 echo press any key to go back...
 pause > nul
@@ -1207,8 +1428,8 @@ if exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Unlocked: Mathematicia
 if not exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Locked: Mathematician          - Get every question right during the math quiz!
 if exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Unlocked: Another Feeling      - Find the secret code for the feelings question.
 if not exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Locked: Another Feeling        - Find the secret code for the feelings question.
-if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Yes or Annoyance     - Annoy boredcoding.bat during level six.
-if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Yes or Annoyance       - Annoy boredcoding.bat during level six.
+if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Not A Color!!!         - Annoy BCG while picking a color.
+if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Not A Color!!!         - Annoy BCG while picking a color.
 echo --------------------------------------------------------------------------------
 echo Type the first word of the name of the achievement to toggle it.
 set /P option=
@@ -1367,6 +1588,8 @@ echo answerone - %answerone%
 echo answertwo - %answertwo%
 echo answerthree - %answerthree%
 echo currentsave - %currentsave%
+echo colorchoice - %colorchoice%
+echo colorannoy - %colorannoy%
 echo -------------------------------------------------------
 echo Press any key to go back...
 pause > nul
@@ -1394,7 +1617,14 @@ echo Save Data Created...
 timeout 1 /NOBREAK > nul
 goto :loadgame
 
+:loadgametroll
+cls
+echo NO ESCAPE...
+timeout 2 /NOBREAK > nul
+exit
+
 :loadgame
+if "%colorannoydeleted%" EQU "Y" goto :loadgametroll
 cls
 echo Checking for save...
 cd "C:\Users\%username%\ThatTemp\BCG\%currentsave%\"
@@ -1737,7 +1967,7 @@ echo color color color color color color color color color color color color col
 color 01
 echo color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color color 
 
-color 0F
+color %colorchoice%
 cls
 echo hah!
 timeout 2 /NOBREAK > nul
@@ -2073,6 +2303,7 @@ set /A mhp=100
 set /A yhp=100
 set battleend=levelfourendbattle
 set firsttimeskull=Y
+set forfeitbattle=N
 goto :battleloop
 
 :levelfourendbattle
@@ -2702,7 +2933,6 @@ if /I "%option%" EQU "Yes" set streamer=Y& goto :levelsixasktimesave
 if /I "%option%" EQU "No" set streamer=N& goto :levelsixasktimesave
 if /I "%option%" EQU "N" set streamer=N& goto :levelsixasktimesave
 cd "C:\Users\%username%\ThatTemp\BCG\"
-if "%alreadyesno%" EQU "Y" echo nicejob >annoy.aim
 cls
 if "%alreadyesno%" EQU "Y" echo WHAT PART OF YES OR NO DO YOU NOT GET?!& echo ---------------------------------------
 if not "%alreadyesno%" EQU "Y" echo thats a yes or no question.& echo ---------------------------
@@ -2831,7 +3061,7 @@ echo Level 829352358972789587929578923897525973879527385972358972398752375982375
 cls
 echo Overwriting save...
 timeout 2 /NOBREAK > nul
-color 0F
+color %colorchoice%
 cls
 echo Done.
 timeout 1 /NOBREAK > nul
