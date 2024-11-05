@@ -1,13 +1,16 @@
 @echo off
 rem i mean, you can look through the code, i have occasional comments, but there's not gonna be much of anything interesting here
 rem well, as of ALPHA_1.4.0, there's been tons of comments!
+rem .
+rem for future reference, here's an example for the choice command:
+rem choice /C (options here) /N
 color 0F
 title BCG
 set checkforskull=N
 set runBatch=%cd%\
 rem dont forget to update these!
-set ver=ALPHA_1.5.8
-set buildver=26
+set ver=ALPHA_1.5.9
+set buildver=27
 set isSnap=N
 rem okay, you dont have to update these.
 set /A colorannoy=0
@@ -17,6 +20,10 @@ set isDev=N
 if exist "C:\Users\%username%\ThatTemp\BCG\DEBUG.dat" set isDev=Y
 set update=N
 if "%runBatch%" EQU "*\\" set runBatch=%cd%
+if not exist "%runBatch%exec.dat" set checkexe=N
+if exist "%runBatch%exec.dat" set checkexe=Y
+if "%checkexe%" EQU "Y" set /P checkexed=<exec.dat
+if "%checkexed%" EQU "WALTER" set isExe=Y
 set alrcheck=N
 if not exist "C:\Users\%username%\ThatTemp\BCG\" goto :firsttime
 cd "C:\Users\%username%\ThatTemp\BCG\"
@@ -551,39 +558,39 @@ echo you are alpha > alpha.aim
 if not exist "C:\Users\%username%\ThatTemp\BCG\colorchoice.dat" echo 0F > colorchoice.dat
 if /I "%update%" EQU "Y" goto :updatefinish
 cls
-echo Hacking the mainframe        : LOADING
+echo Hacking the mainframe         : LOADING
 timeout 2 /NOBREAK > nul
 cls
-echo Hacking the mainframe        : OK
+echo Hacking the mainframe         : OK
 timeout 1 /NOBREAK > nul
-echo Subscribing to ThatonegamerX : LOADING
-timeout 1 /NOBREAK > nul
-cls
-echo Hacking the mainframe        : OK
-echo Subscribing to ThatonegamerX : OK
-timeout 1 /NOBREAK > nul
-echo Defragmenting HDD's          : LOADING
+echo Subscribing to scrambled_egg3 : LOADING
 timeout 1 /NOBREAK > nul
 cls
-echo Hacking the mainframe        : OK
-echo Subscribing to ThatonegamerX : OK
-echo Defragmenting HDD's          : OK
+echo Hacking the mainframe         : OK
+echo Subscribing to scrambled_egg3 : OK
 timeout 1 /NOBREAK > nul
-echo Corrupting Floppy Disks      : LOADING
-timeout 1 /NOBREAK > nul
-cls
-echo Hacking the mainframe        : OK
-echo Subscribing to ThatonegamerX : OK
-echo Defragmenting HDD's          : OK
-echo Corrupting Floppy Disks      : OK
-timeout 1 /NOBREAK > nul
-echo Doing actual stuff           : LOADING
+echo Defragmenting HDD's           : LOADING
 timeout 1 /NOBREAK > nul
 cls
-echo Hacking the mainframe        : OK
-echo Subscribing to ThatonegamerX : OK
-echo Defragmenting HDD's          : OK
-echo Corrupting Floppy Disks      : OK
+echo Hacking the mainframe         : OK
+echo Subscribing to scrambled_egg3 : OK
+echo Defragmenting HDD's           : OK
+timeout 1 /NOBREAK > nul
+echo Corrupting Floppy Disks       : LOADING
+timeout 1 /NOBREAK > nul
+cls
+echo Hacking the mainframe         : OK
+echo Subscribing to scrambled_egg3 : OK
+echo Defragmenting HDD's           : OK
+echo Corrupting Floppy Disks       : OK
+timeout 1 /NOBREAK > nul
+echo Doing actual stuff            : LOADING
+timeout 1 /NOBREAK > nul
+cls
+echo Hacking the mainframe         : OK
+echo Subscribing to scrambled_egg3 : OK
+echo Defragmenting HDD's           : OK
+echo Corrupting Floppy Disks       : OK
 rem Only uncomment the below if you'd like to preview the error.
 rem set installfailedip=Y
 if "%installfailedip%" EQU "Y" echo Doing actual stuff           : FAILED & goto :installfailedip
@@ -599,13 +606,13 @@ goto :resetdata
 
 :resetdata
 cd "C:\Users\%username%\ThatTemp\BCG\saveone\"
-if exist "C:\Users\%username%\ThatTemp\BCG\saveone\save.dat" set /P levelsaveone=<save.dat
+if exist "C:\Users\%username%\ThatTemp\BCG\saveone\save.dat" set /P levelsaveone=<friendlysave.dat
 if not exist "C:\Users\%username%\ThatTemp\BCG\saveone\save.dat" set levelsaveone=NEW GAME
 cd "C:\Users\%username%\ThatTemp\BCG\savetwo\"
-if exist "C:\Users\%username%\ThatTemp\BCG\savetwo\save.dat" set /P levelsavetwo=<save.dat
+if exist "C:\Users\%username%\ThatTemp\BCG\savetwo\save.dat" set /P levelsavetwo=<friendlysave.dat
 if not exist "C:\Users\%username%\ThatTemp\BCG\savetwo\save.dat" set levelsavetwo=NEW GAME
 cd "C:\Users\%username%\ThatTemp\BCG\savethree\"
-if exist "C:\Users\%username%\ThatTemp\BCG\savethree\save.dat" set /P levelsavethree=<save.dat
+if exist "C:\Users\%username%\ThatTemp\BCG\savethree\save.dat" set /P levelsavethree=<friendlysave.dat
 if not exist "C:\Users\%username%\ThatTemp\BCG\savethree\save.dat" set levelsavethree=NEW GAME
 cls
 echo Which save file would you like to delete?
@@ -619,13 +626,13 @@ echo Save File 2: %levelsavetwo%
 echo Save File 3: %levelsavethree%
 echo -------------------------------------------------------------------------------
 echo Type the number of a save file to choose it!
-set /P option=
-if "%option%" EQU "1" set deletefile=1& goto :resetfile
-if "%option%" EQU "2" set deletefile=2& goto :resetfile
-if "%option%" EQU "3" set deletefile=3& goto :resetfile
+choice /C 123FE /N
+if "%errorlevel%" EQU "1" set deletefile=1& goto :resetfile
+if "%errorlevel%" EQU "2" set deletefile=2& goto :resetfile
+if "%errorlevel%" EQU "3" set deletefile=3& goto :resetfile
 
-if /I "%option%" EQU "F" goto :fullreset
-if /I "%option%" EQU "E" goto :options
+if "%errorlevel%" EQU "4" goto :fullreset
+if "%errorlevel%" EQU "5" goto :options
 cls
 echo that's not an option...
 echo ----------------------------
@@ -637,12 +644,10 @@ goto :resetdata
 cls
 echo Are you sure you want to delete save file %deletefile%?
 echo --------------------------------------------
-echo Yes                                       No
-set /P option=
-if /I "%option%" EQU "Y" goto :resetfileconfirm
-if /I "%option%" EQU "Yes" goto :resetfileconfirm
-if /I "%option%" EQU "No" goto :resetdata 
-if /I "%option%" EQU "N" goto :resetdata 
+echo Y                                          N
+choice /C YN /N
+if /I "%errorlevel%" EQU "1" goto :resetfileconfirm
+if /I "%errorlevel%" EQU "2" goto :resetdata 
 cls
 echo that's not an option...
 echo ---------------------------
@@ -697,9 +702,9 @@ echo there are two ways to do this.
 echo 1. update the files (wont clear your save data.) (recommended)
 echo 2. continue anyway  (will likely crash the game) (not recommended)
 echo press the number of an option to choose it.
-set /P option=
-if "%option%" EQU "2" set alrcheck=Y& goto :start
-if "%option%" EQU "1" set update=Y& goto :startinstall
+choice /C 21 /N
+if "%errorlevel%" EQU "1" set alrcheck=Y& goto :start
+if "%errorlevel%" EQU "2" set update=Y& goto :startinstall
 cls
 echo that's not an option here.
 timeout 1 /NOBREAK > nul
@@ -724,6 +729,7 @@ rem this code below started getting annoying, so i commented it out.
 rem if "%isDev%" EQU "Y" pause
 cls
 echo BCG %ver%
+if "%isExe%" EQU "Y" echo Executable version
 if exist "C:\Users\%username%\ThatTemp\BCG\olddebug.dat" echo USED TO BE A DEBUG USER
 if "%isDev%" EQU "Y" echo DEBUG ENABLED
 if "%isSnap%" EQU "Y" echo Pre-Release build!
@@ -739,17 +745,18 @@ echo Options
 echo Exit
 echo ---------------------------------------------
 echo Type the first letter of an option to use it!
-set /P option=
-if /I "%option%" EQU "S" goto :gamesaves
-if /I "%option%" EQU "O" goto :options
-if /I "%option%" EQU "A" goto :achievements
-if /I "%option%" EQU "E" exit
-if /I "%option%" EQU "L" goto :DEBUGask
-if /I "%option%" EQU "M" if exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" goto :minigames
-if /I "%option%" EQU "M" if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" goto :minigameslocked
-if /I "%option%" EQU "R" goto :start
+choice /C SOAELMR /N
+if /I "%errorlevel%" EQU "1" goto :gamesaves
+if /I "%errorlevel%" EQU "2" goto :options
+if /I "%errorlevel%" EQU "3" goto :achievements
+if /I "%errorlevel%" EQU "4" exit
+if /I "%errorlevel%" EQU "5" goto :DEBUGask
+if /I "%errorlevel%" EQU "6" if exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" goto :minigames
+if /I "%errorlevel%" EQU "6" if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" goto :minigameslocked
+if /I "%errorlevel%" EQU "7" goto :start
 cls
 echo that's not an option.
+if "%isDev%" EQU "Y" echo %errorlevel%
 echo press a key to go back
 pause > nul
 goto :start
@@ -767,10 +774,10 @@ echo Reset Data
 echo Change Color
 echo ---------------------------------------------
 echo Type the first letter of an option to use it!
-set /P option=
-if /I "%option%" EQU "C" goto :changecolor
-if /I "%option%" EQU "R" goto :resetdata
-if /I "%option%" EQU "E" goto :start
+choice /C CRE /N
+if /I "%errorlevel%" EQU "1" goto :changecolor
+if /I "%errorlevel%" EQU "2" goto :resetdata
+if /I "%errorlevel%" EQU "3" goto :start
 cls
 echo that's not an option.
 echo ---------------------------
@@ -818,15 +825,15 @@ echo 5 - Dark Blue
 echo 6 - Black
 echo ----------------------------------------
 echo Type the number of a color to choose it!
-set /P coloroption=
-if /I "%coloroption%" EQU "1" set coloroption=1& goto :changecolorback
-if /I "%coloroption%" EQU "2" set coloroption=2& goto :changecolorback
-if /I "%coloroption%" EQU "3" set coloroption=3& goto :changecolorback
-if /I "%coloroption%" EQU "4" set coloroption=4& goto :changecolorback
-if /I "%coloroption%" EQU "5" set coloroption=5& goto :changecolorback
-if /I "%coloroption%" EQU "6" set coloroption=6& goto :changecolorback
+choice /C 123456E /N
+if /I "%errorlevel%" EQU "1" set coloroption=1& goto :changecolorback
+if /I "%errorlevel%" EQU "2" set coloroption=2& goto :changecolorback
+if /I "%errorlevel%" EQU "3" set coloroption=3& goto :changecolorback
+if /I "%errorlevel%" EQU "4" set coloroption=4& goto :changecolorback
+if /I "%errorlevel%" EQU "5" set coloroption=5& goto :changecolorback
+if /I "%errorlevel%" EQU "6" set coloroption=6& goto :changecolorback
 rem .
-if /I "%coloroption%" EQU "E" goto :options
+if /I "%errorlevel%" EQU "7" goto :options
 if "%colorannoy%" EQU "7" set /A colorannoy=0
 set /A colorannoy=%colorannoy%+1
 cls
@@ -868,15 +875,15 @@ if not "%coloroption%" EQU "6" echo 6 - Black
 
 echo ----------------------------------------
 echo Type the number of a color to choose it!
-set /P coloroptionback=
-if /I "%coloroptionback%" EQU "1" set coloroptionback=1& goto :changecolorcheck
-if /I "%coloroptionback%" EQU "2" set coloroptionback=2& goto :changecolorcheck
-if /I "%coloroptionback%" EQU "3" set coloroptionback=3& goto :changecolorcheck
-if /I "%coloroptionback%" EQU "4" set coloroptionback=4& goto :changecolorcheck
-if /I "%coloroptionback%" EQU "5" set coloroptionback=5& goto :changecolorcheck
-if /I "%coloroptionback%" EQU "6" set coloroptionback=6& goto :changecolorcheck
+choice /C 1234567 /N
+if /I "%errorlevel%" EQU "1" set coloroptionback=1& goto :changecolorcheck
+if /I "%errorlevel%" EQU "2" set coloroptionback=2& goto :changecolorcheck
+if /I "%errorlevel%" EQU "3" set coloroptionback=3& goto :changecolorcheck
+if /I "%errorlevel%" EQU "4" set coloroptionback=4& goto :changecolorcheck
+if /I "%errorlevel%" EQU "5" set coloroptionback=5& goto :changecolorcheck
+if /I "%errorlevel%" EQU "6" set coloroptionback=6& goto :changecolorcheck
 rem .
-if /I "%coloroption%" EQU "E" goto :options
+if /I "%errorlevel%" EQU "7" goto :options
 cls
 echo that's not a color...
 echo ------------------------------
@@ -946,14 +953,12 @@ goto :options
 color %encodedcolorback%%encodedcolor%
 cls
 echo Is this color okay?
-echo Yes              No
+echo Y                 N
 echo -------------------
 echo Choose an option.
-set /P colorconfirm=
-if /I "%colorconfirm%" EQU "Y" goto :changecolorconfirmset
-if /I "%colorconfirm%" EQU "Yes" goto :changecolorconfirmset
-if /I "%colorconfirm%" EQU "No" goto :changecolordecline
-if /I "%colorconfirm%" EQU "N" goto :changecolordecline
+choice /C YN /N
+if /I "%errorlevel%" EQU "1" goto :changecolorconfirmset
+if /I "%errorlevel%" EQU "2" goto :changecolordecline
 cls
 echo Not an answer...
 echo ---------------------------
@@ -983,12 +988,12 @@ echo Guess the Number
 echo -----------------------=========-----------------------
 echo      type the first letter of an option to use it!
 echo                 press "E" to go back...
-set /P option=
-if /I "%option%" EQU "E" goto :start
+choice /C EBRG /N
+if /I "%errorlevel%" EQU "1" goto :start
 
-if /I "%option%" EQU "B" goto :startminigamebattle
-if /I "%option%" EQU "R" set firsttimerock=Y& goto :startminigamerps
-if /I "%option%" EQU "G" goto :startminigameguess
+if /I "%errorlevel%" EQU "2" goto :startminigamebattle
+if /I "%errorlevel%" EQU "3" set firsttimerock=Y& goto :startminigamerps
+if /I "%errorlevel%" EQU "4" goto :startminigameguess
 cls
 echo that's not an option...
 echo ---------------------------
@@ -1013,14 +1018,13 @@ echo Paper
 echo Scissors
 echo ---------------------------------------------
 echo Type the first letter of an option to use it!
-echo Pressing an invalid option will choose Rock.
-set /P option=
+choice /C ERPS /N
 set rockchoice=M
-if /I "%option%" EQU "E" goto :minigames
+if /I "%errorlevel%" EQU "1" goto :minigames
 
-if /I "%option%" EQU "R" set rockchoice=R
-if /I "%option%" EQU "P" set rockchoice=P
-if /I "%option%" EQU "S" set rockchoice=S
+if /I "%errorlevel%" EQU "2" set rockchoice=R
+if /I "%errorlevel%" EQU "3" set rockchoice=P
+if /I "%errorlevel%" EQU "4" set rockchoice=S
 if "%rockchoice%" EQU "M" set rockchoice=R
 cls
 echo Rock. Paper. Scissors.
@@ -1094,12 +1098,10 @@ goto :endminigamebattleask
 cls
 echo would you like to play again?
 echo -----------------------------
-echo Yes                        No
-set /P option=
-if /I "%option%" EQU "Y" goto :startminigamebattle
-if /I "%option%" EQU "Yes" goto :startminigamebattle
-if /I "%option%" EQU "No" goto :minigames
-if /I "%option%" EQU "N" goto :minigames
+echo Y                           N
+choice /C YN /N
+if /I "%errorlevel%" EQU "1" goto :startminigamebattle
+if /I "%errorlevel%" EQU "2" goto :minigames
 cls
 echo that's not an option...
 echo ---------------------------
@@ -1179,12 +1181,10 @@ echo AnswerOne  : %answeroneask%
 echo AnswerTwo  : %answertwoask%
 echo AnswerThree: %answerthreeask%
 echo ---------------------------------------------------------
-echo Yes                                                    No
-set /P option=
-if /I "%option%" EQU "Yes" goto :saveconvertconfirm
-if /I "%option%" EQU "Y" goto :saveconvertconfirm
-if /I "%option%" EQU "N" goto :saveconvertabort
-if /I "%option%" EQU "No" goto :saveconvertabort
+echo Y                                                       N
+choice /C YN /N
+if /I "%option%" EQU "1" goto :saveconvertconfirm
+if /I "%option%" EQU "2" goto :saveconvertabort
 goto :saveconvertconfirm
 
 :saveconvertconfirm
@@ -1258,11 +1258,11 @@ echo Save File 2: %levelsavetwo%
 echo Save File 3: %levelsavethree%
 echo ---------------------------------------------
 echo Type the number of a save file to choose it!
-set /P option=
-if /I "%option%" EQU "1" set currentsave=saveone& goto :loadgame
-if /I "%option%" EQU "2" set currentsave=savetwo& goto :loadgame
-if /I "%option%" EQU "3" set currentsave=savethree& goto :loadgame
-if /I "%option%" EQU "E" goto :start
+choice /C 123E /N
+if /I "%errorlevel%" EQU "1" set currentsave=saveone& goto :loadgame
+if /I "%errorlevel%" EQU "2" set currentsave=savetwo& goto :loadgame
+if /I "%errorlevel%" EQU "3" set currentsave=savethree& goto :loadgame
+if /I "%errorlevel%" EQU "4" goto :start
 cls
 echo woah there, pal!
 timeout 1 /NOBREAK > nul
@@ -1289,8 +1289,8 @@ if exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Unlocked: Mathematicia
 if not exist "C:\Users\%username%\ThatTemp\BCG\math.aim" echo Locked: Mathematician          - Get every question right during the math quiz!
 if exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Unlocked: Another Feeling      - Find the secret code for the feelings question.
 if not exist "C:\Users\%username%\ThatTemp\BCG\feel.aim" echo Locked: Another Feeling        - Find the secret code for the feelings question.
-if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Not A Color!!!       - Annoy BCG while picking a color.
-if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Not A Color!!!         - Annoy BCG while picking a color.
+rem if exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Unlocked: Not A Color!!!       - Annoy BCG while picking a color.
+rem if not exist "C:\Users\%username%\ThatTemp\BCG\annoy.aim" echo Locked: Not A Color!!!         - Annoy BCG while picking a color.
 echo ---------------------------------------------------------------------------------------
 echo press any key to go back...
 pause > nul
@@ -1363,17 +1363,17 @@ echo Go To
 if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" echo Minigames Enable
 echo -------------------------------------------------------
 echo Type the first letter of an option to use it.
-set /P option=
-if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" if /I "%option%" EQU "M" cd "C:\Users\%username%\ThatTemp\BCG\"& echo cheater >minigames.dat& goto :DEBUG
+choice /C EDGCLSVAM /N
+if not exist "C:\Users\%username%\ThatTemp\BCG\minigames.dat" if /I "%errorlevel%" EQU "9" cd "C:\Users\%username%\ThatTemp\BCG\"& echo cheater >minigames.dat& goto :DEBUG
 
-if /I "%option%" EQU "E" goto :start
-if /I "%option%" EQU "D" goto :disabledebug
-if /I "%option%" EQU "G" goto :gotodebug
-if /I "%option%" EQU "C" goto :selfcrash
-if /I "%option%" EQU "L" goto :levelselect
-if /I "%option%" EQU "S" goto :saveeditorlevelask
-if /I "%option%" EQU "V" goto :variablelist
-if /I "%option%" EQU "A" goto :achievementedit
+if /I "%errorlevel%" EQU "1" goto :start
+if /I "%errorlevel%" EQU "2" goto :disabledebug
+if /I "%errorlevel%" EQU "3" goto :gotodebug
+if /I "%errorlevel%" EQU "4" goto :selfcrash
+if /I "%errorlevel%" EQU "5" goto :levelselect
+if /I "%errorlevel%" EQU "6" goto :saveeditorlevelask
+if /I "%errorlevel%" EQU "7" goto :variablelist
+if /I "%errorlevel%" EQU "8" goto :achievementedit
 cls
 echo not an option.
 timeout 2 /NOBREAK > nul
@@ -1510,12 +1510,12 @@ echo save2
 echo save3
 echo -------------------------------------------------------
 echo Type the number of the save file to edit it.
-set /P option=
-if "%option%" EQU "1" set leveledit=one& goto :saveeditoredit
-if "%option%" EQU "2" set leveledit=two& goto :saveeditoredit
-if "%option%" EQU "3" set leveledit=three& goto :saveeditoredit
+choice /C 123E /N
+if "%errorlevel%" EQU "1" set leveledit=one& goto :saveeditoredit
+if "%errorlevel%" EQU "2" set leveledit=two& goto :saveeditoredit
+if "%errorlevel%" EQU "3" set leveledit=three& goto :saveeditoredit
 rem .
-if /I "%option%" EQU "E" goto :DEBUG
+if "%errorlevel%" EQU "4" goto :DEBUG
 cls
 echo not an option.
 timeout 2 /NOBREAK > nul
@@ -1591,6 +1591,7 @@ echo answerthree - %answerthree%
 echo currentsave - %currentsave%
 echo colorchoice - %colorchoice%
 echo colorannoy - %colorannoy%
+echo errorlevel - %errorlevel%
 echo -------------------------------------------------------
 echo Press any key to go back...
 pause > nul
@@ -1608,7 +1609,7 @@ goto :DEBUG
 :liveparrot
 title he he he
 curl parrot.live
-goto :liveparrot
+goto :start
 
 :createsavedata
 cd "C:\Users\%username%\ThatTemp\BCG\%currentsave%\"
@@ -2148,14 +2149,14 @@ echo [Lethal Grab (10HP)] [Skull Crusher (1/1638 chance, 100HP)]
 echo [Heal (+15 HP)]      [Baby Punch (1 HP)]
 echo -----------------------------------------------------------
 echo Type the first letter of your attack to use it!
-set /P option=
+choice /C LHBSEP /N
 cls
-if /I "%option%" EQU "L" goto :lethalgrabfight
-if /I "%option%" EQU "H" goto :healfight
-if /I "%option%" EQU "B" goto :babypunchfight
-if /I "%option%" EQU "S" goto :skullcrusherfight
-if /I "%option%" EQU "E" set forfeitbattle=Y& goto :battleloop
-if /I "%option%" EQU "potato" set /A mhp=0& goto :battleloop
+if /I "%errorlevel%" EQU "1" goto :lethalgrabfight
+if /I "%errorlevel%" EQU "2" goto :healfight
+if /I "%errorlevel%" EQU "3" goto :babypunchfight
+if /I "%errorlevel%" EQU "4" goto :skullcrusherfight
+if /I "%errorlevel%" EQU "5" set forfeitbattle=Y& goto :battleloop
+if /I "%errorlevel%" EQU "6" set /A mhp=0& goto :battleloop
 cls
 rem do you think this part is unfair?
 echo You chose a non-existent attack.
