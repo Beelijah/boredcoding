@@ -1441,7 +1441,7 @@ if /I "%option%" EQU "Debug" set toggleach=DEBUG& goto :toggleachievement
 if /I "%option%" EQU "MATH" set toggleach=MATH& goto :toggleachievement
 if /I "%option%" EQU "Mathematician" set toggleach=MATH& goto :toggleachievement
 if /I "%option%" EQU "ANOTHER" set toggleach=ANOT& goto :toggleachievement
-if /I "%option%" EQU "Yes" set toggleach=YES& goto :toggleachievement
+if /I "%option%" EQU "Not" set toggleach=YES& goto :toggleachievement
 cls
 echo that's not an achievement.
 echo ---------------------------
