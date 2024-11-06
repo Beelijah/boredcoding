@@ -9,8 +9,8 @@ title BCG
 set checkforskull=N
 set runBatch=%cd%\
 rem dont forget to update these!
-set ver=ALPHA_1.5.9
-set buildver=27
+set ver=ALPHA_1.5.10
+set buildver=28
 set isSnap=N
 rem okay, you dont have to update these.
 set /A colorannoy=0
