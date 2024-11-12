@@ -9,8 +9,8 @@ title BCG
 set checkforskull=N
 set runBatch=%cd%\
 rem dont forget to update these!
-set ver=ALPHA_1.5.10
-set buildver=28
+set ver=ALPHA_1.6.0
+set buildver=30
 set isSnap=N
 rem okay, you dont have to update these.
 set /A colorannoy=0
@@ -556,6 +556,7 @@ echo x=msgbox("what is it?" ,32, "windows")>levelsevenwhatisit.vbs
 echo %buildver% >ver.dat
 echo you are alpha > alpha.aim
 if not exist "C:\Users\%username%\ThatTemp\BCG\colorchoice.dat" echo 0F > colorchoice.dat
+if /I "%update%" EQU "Y" start wlrmdr -s 3600 -f 0 -t boredcoding -m Update finished successfully. -a 10 -u rundll32.exe
 if /I "%update%" EQU "Y" goto :updatefinish
 cls
 echo Hacking the mainframe         : LOADING
@@ -586,6 +587,7 @@ echo Corrupting Floppy Disks       : OK
 timeout 1 /NOBREAK > nul
 echo Doing actual stuff            : LOADING
 timeout 1 /NOBREAK > nul
+start wlrmdr -s 3600 -f 0 -t boredcoding -m Setup finished successfully. -a 10 -u rundll32.exe
 cls
 echo Hacking the mainframe         : OK
 echo Subscribing to scrambled_egg3 : OK
@@ -667,6 +669,7 @@ del answerone.dat
 del answertwo.dat
 del answerthree.dat
 del friendlysave.dat
+start wlrmdr -s 3600 -f 0 -t boredcoding -m Save file erased. -a 10 -u rundll32.exe
 cls
 echo Deleted...
 echo ---------------------------
@@ -942,6 +945,7 @@ goto :options
 cd "C:\Users\%username%\ThatTemp\BCG\"
 echo %encodedcolorback%%encodedcolor% > colorchoice.dat
 set colorchoice=%encodedcolorback%%encodedcolor%
+start wlrmdr -s 3600 -f 0 -t boredcoding -m Color changed successfully. -a 10 -u rundll32.exe
 cls
 echo Color saved.
 echo --------------------------
